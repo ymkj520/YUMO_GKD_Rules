@@ -1,0 +1,87 @@
+{
+  // ===== 基础信息 =====
+  id: "YUMO_GKD",
+  name: "宇梦 · GKD 超级净化规则（自动更新版）",
+  version: "2025.12.10",
+  author: "Yumo.AI",
+  overall_strategy: "remove", // 全局策略：remove（移除），click（点击），ignore（忽略）
+  update_url: "https://raw.githubusercontent.com/ymkj520/YUMO_GKD/main/YUMO_GKD.json5", // 自动更新 URL
+
+  // ====== 规则区域 ======
+  rules: [
+    // ==== 抖音开屏广告 ====
+    {
+      id: "douyin_splash",
+      name: "抖音 - 开屏广告",
+      desc: "自动跳过开屏动画与推广页",
+      match: [
+        { id: "com.ss.android.ugc.aweme:id/splash_root" },
+        { text: "广告" }
+      ],
+      action: "click"
+    },
+
+    // ==== 快手直播推荐 ====
+    {
+      id: "kuaishou_live_recommend",
+      name: "快手 - 直播推荐拦截",
+      desc: "去除首页和直播间推荐内容",
+      match: [
+        { text: "为你推荐" },
+        { id: "com.kuaishou.android/live_push_container" }
+      ],
+      action: "remove"
+    },
+
+    // ==== 系统通知广告 ====
+    {
+      id: "system_push_ad",
+      name: "系统 - 推送广告",
+      desc: "拦截系统推送精选和广告",
+      match: [
+        { pkg: "com.android.systemui", text: "精选" },
+        { pkg: "com.miui.systemAdSolution" }
+      ],
+      action: "remove"
+    },
+
+    // ==== 微信精选/服务号推广 ====
+    {
+      id: "wechat_official_recommend",
+      name: "微信 - 服务号推广",
+      desc: "去除微信推荐文章和精选内容",
+      match: [
+        { pkg: "com.tencent.mm", text: "精选内容" },
+        { text: "可能感兴趣" }
+      ],
+      action: "remove"
+    },
+
+    // ==== 浏览器信息流广告 ====
+    {
+      id: "browser_feed_ad",
+      name: "浏览器 - 信息流广告",
+      desc: "屏蔽各类浏览器网页信息流广告",
+      match: [
+        { pkg: "com.android.browser", text: "广告" },
+        { text: "推广" }
+      ],
+      action: "remove"
+    },
+
+    // ==== 游戏内弹窗 ====
+    {
+      id: "game_popup",
+      name: "手游 - 活动/礼包弹窗",
+      desc: "去掉游戏内各种礼包、弹窗广告",
+      match: [
+        { text: "限时礼包" },
+        { text: "点击领取" },
+        { text: "专属奖励" }
+      ],
+      action: "remove"
+    }
+
+    // ===== 这里可以继续添加 300+ 条规则，遵循相同格式 =====
+  ]
+}
